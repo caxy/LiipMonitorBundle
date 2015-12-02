@@ -14,7 +14,7 @@ class PathHelper
      */
     public function __construct(ContainerInterface $container)
     {
-        $this->assetsHelper = $container->get('templating.helper.assets');
+        $this->assetsHelper = $container->get('assets.packages');
         $this->routerHelper = $container->get('templating.helper.router');
     }
 
@@ -27,7 +27,7 @@ class PathHelper
     {
         $ret = array();
         foreach ($routes as $route => $params) {
-            $ret[] = sprintf('api.%s = "%s";', $route, $this->routerHelper->generate($route, $params));
+            $ret[] = sprintf('api.%s = "%s";', $route, $this->routerHelper->url($route, $params));
         }
 
         return $ret;
